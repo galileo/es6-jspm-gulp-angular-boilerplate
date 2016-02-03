@@ -1,27 +1,39 @@
-export default function ($rootScope, CORE_CONFIG) {
-  if (CORE_CONFIG.debug['ui-router'] === false) {
+import {log} from './ui-router-log.js';
+import listener from './ui-router-listener.js';
+
+export default function ($log, $rootScope, CORE_CONFIG) {
+  var uiRouterConfig = CORE_CONFIG.debug['ui-router'];
+  log.logger = $log;
+
+  if (CORE_CONFIG.debug.standard === false || uiRouterConfig === false) {
     return;
   }
 
-  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    console.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
-  });
-  $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-    console.log('$stateChangeError - fired when an error occurs during transition.');
-    console.log(arguments);
-  });
-  $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-    console.log('$stateChangeSuccess to ' + toState.name + '- fired once the state transition is complete.');
-  });
-  $rootScope.$on('$viewContentLoading', function (event, viewConfig) {
-    // runs on individual scopes, so putting it in "run" doesn't work.
-    console.log('$viewContentLoading - view begins loading - dom not rendered', viewConfig);
-  });
-  $rootScope.$on('$viewContentLoaded', function (event) {
-    console.log('$viewContentLoaded - fired after dom rendered', event);
-  });
-  $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
-    console.log('$stateNotFound ' + unfoundState.to + '  - fired when a state cannot be found by its name.');
-    console.log(unfoundState, fromState, fromParams);
-  });
+  uiRouterConfig = uiRouterConfig === true ? {} : uiRouterConfig;
+  uiRouterConfig.type = uiRouterConfig.type || 'all';
+
+  if (uiRouterConfig === false) {
+    log.info('You can enable ui-router state debug in config.json file debug.ui-router: { type: all, verbose, errors } ');
+
+    return;
+  }
+
+  log.info('You can disable ui-router state debug in config.json file debug.ui-router: false');
+
+  switch (uiRouterConfig.type) {
+    case 'error':
+      listener.listenErrors($rootScope, log);
+      break;
+    case 'all':
+      listener.listenAll($rootScope, log);
+      listener.listenErrors($rootScope, log);
+      break;
+    case 'verbose':
+      listener.listenAll($rootScope, log);
+      listener.listenErrors($rootScope, log);
+      listener.listenVerbose($rootScope, log);
+      break;
+    default:
+      $log.warn('We don\' support debug \'' + uiRouterConfig.type + '\'');
+  }
 }

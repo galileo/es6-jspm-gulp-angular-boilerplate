@@ -1,6 +1,8 @@
 {
   "debug": {
     "standard": true,
-    "ui-router": true
+    "ui-router": {
+      "type": "error"
+    }
   }
 }
