@@ -8,4 +8,6 @@ import 'bootstrap/js/bootstrap.min.js';
 // Import application
 import {bootApp} from './core/index.js';
 
-bootApp();
+import config from './config.json!json';
+
+bootApp(config);

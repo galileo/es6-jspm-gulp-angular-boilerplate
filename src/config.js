@@ -21,6 +21,7 @@ System.config({
     "core-js": "npm:core-js@0.9.15",
     "css": "github:systemjs/plugin-css@0.1.20",
     "jquery": "npm:jquery@2.2.0",
+    "json": "github:systemjs/plugin-json@0.1.0",
     "pixi.js": "npm:pixi.js@3.0.6",
     "github:angular-ui/ui-router@0.2.17": {
       "angular": "github:angular/bower-angular@1.4.9"

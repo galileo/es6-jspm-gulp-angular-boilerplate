@@ -1,0 +1,6 @@
+{
+  "debug": {
+    "standard": true,
+    "ui-router": true
+  }
+}

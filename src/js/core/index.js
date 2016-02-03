@@ -10,6 +10,7 @@ let coreModule = angular.module('core', [
   'ui.router',
 
   // Core modules
+  'core.main',
   'core.layout',
   'core.api',
 
@@ -20,7 +21,9 @@ let coreModule = angular.module('core', [
 coreModule.constant('CORE_MODULES', modules);
 coreModule.config(routing);
 
-export function bootApp () {
+export function bootApp (config) {
+  coreModule.constant('CORE_CONFIG', config);
+
   angular.element(document).ready(function () {
     angular.bootstrap(document, ['core']);
   });
