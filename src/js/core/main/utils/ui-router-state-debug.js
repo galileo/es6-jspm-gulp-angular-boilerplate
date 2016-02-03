@@ -1,16 +1,21 @@
 import {log} from './ui-router-log.js';
 import listener from './ui-router-listener.js';
 
+let prepareConfig = function (uiRouterConfig) {
+  uiRouterConfig = uiRouterConfig === true ? {} : uiRouterConfig;
+  uiRouterConfig.type = uiRouterConfig.type || 'all';
+
+  return uiRouterConfig;
+};
+
 export default function ($log, $rootScope, CORE_CONFIG) {
-  var uiRouterConfig = CORE_CONFIG.debug['ui-router'];
+  var uiRouterConfig = prepareConfig(CORE_CONFIG.debug['ui-router']);
+
   log.logger = $log;
 
   if (CORE_CONFIG.debug.standard === false || uiRouterConfig === false) {
     return;
   }
-
-  uiRouterConfig = uiRouterConfig === true ? {} : uiRouterConfig;
-  uiRouterConfig.type = uiRouterConfig.type || 'all';
 
   if (uiRouterConfig === false) {
     log.info('You can enable ui-router state debug in config.json file debug.ui-router: { type: all, verbose, errors } ');
@@ -34,6 +39,6 @@ export default function ($log, $rootScope, CORE_CONFIG) {
       listener.listenVerbose($rootScope, log);
       break;
     default:
-      $log.warn('We don\' support debug \'' + uiRouterConfig.type + '\'');
+      log.warn('We don\' support debug \'' + uiRouterConfig.type + '\'');
   }
 }
