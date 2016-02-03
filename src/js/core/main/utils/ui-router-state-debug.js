@@ -2,6 +2,10 @@ import {log} from './ui-router-log.js';
 import listener from './ui-router-listener.js';
 
 let prepareConfig = function (uiRouterConfig) {
+  if (uiRouterConfig === false) {
+    return false;
+  }
+
   uiRouterConfig = uiRouterConfig === true ? {} : uiRouterConfig;
   uiRouterConfig.type = uiRouterConfig.type || 'all';
 
