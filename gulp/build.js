@@ -16,7 +16,7 @@ var uglify = require('gulp-uglify');
 
 // One build task to rule them all.
 gulp.task('build', function (done) {
-  runSeq('clean', ['buildsass', 'buildimg', 'buildjs'], 'buildhtml', done);
+  runSeq('clean', ['buildsass', 'buildimg', 'buildjs'], 'buildfronts', 'buildhtml', done);
 });
 
 // Build SASS for distribution.
@@ -44,15 +44,24 @@ gulp.task('buildjs', function () {
   });
 });
 
-// Build HTML for distribution.
-gulp.task('buildhtml', function () {
-  gulp.src(global.paths.html)
+// Build Fronts for distribution.
+gulp.task('buildfronts', function () {
+  gulp.src(global.paths.fronts)
     .pipe(replace('css/app.css', 'app.min.css'))
     .pipe(replace('lib/system.js', 'app.min.js'))
     .pipe(replace('<script src="config.js"></script>', ''))
     .pipe(replace("<script>System.import('./js/app')</script>", ''))
     .pipe(minifyHtml())
     .pipe(gulp.dest(global.paths.dist));
+});
+
+// Build HTML for distribution.
+gulp.task('buildhtml', function () {
+  gulp.src(global.paths.html)
+    .pipe(replace('<script src="config.js"></script>', ''))
+    .pipe(replace("<script>System.import('./js/app')</script>", ''))
+    .pipe(minifyHtml())
+    .pipe(gulp.dest(global.paths.dist + '/html'));
 });
 
 // Build images for distribution.

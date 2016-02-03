@@ -16,14 +16,16 @@ var requireDir = require('require-dir');
 
 // Specify paths & globbing patterns for tasks.
 global.paths = {
+  // Front application sources
+  'fronts':'./src/*.html',
   // HTML sources.
-  'html': './src/*.html',
+  'html': './src/html/**/*.html',
   // JS sources.
   'js': './src/js/**/*.js',
   // SASS sources.
   'sass': './src/scss/**/*.scss',
   // Image sources.
-  'img': './src/img/*',
+  'img': './src/img/**/*',
   // Sources folder.
   'src': './src',
   // Compiled CSS folder.

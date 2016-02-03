@@ -1,0 +1,34 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Angular boilerplate</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Angular boilerplate</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div data-ui-view="navbar"></div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div data-ui-view="sidebar"></div>
+        </div>
+        <div class="col-sm-9 col-md-10 content">
+            <h1 class="page-header"
+                data-core-title
+                data-title-prefix="Angular Boilerplate"
+            ></h1>
+
+            <div class="row placeholders">
+                <div data-ui-view="content"></div>
+            </div>
+        </div>
+    </div>
+</div>

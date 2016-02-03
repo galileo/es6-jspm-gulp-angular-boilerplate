@@ -1,8 +1,11 @@
-import Foo from './foo';
+// Import css
+import 'bootstrap/css/bootstrap.min.css!';
 
-let foo = new Foo();
+// Import libraries
+import 'jquery';
+import 'bootstrap/js/bootstrap.min.js';
 
-let textNode = document.createTextNode(foo.doSomething());
-document.body.appendChild(textNode);
+// Import application
+import {bootApp} from './core/index.js';
 
-export var hello = 'es6';
+bootApp();

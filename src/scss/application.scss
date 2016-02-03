@@ -1,0 +1,9 @@
+$color-active: #fffa78;
+
+body {
+  padding-top: 66px;
+}
+
+.sidebar .active {
+  background-color: $color-active;
+}
