@@ -38,4 +38,4 @@ global.paths = {
 requireDir('./gulp', { recurse: false });
 
 // Default task; start local server & watch for changes.
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['sass','connect', 'watch']);
