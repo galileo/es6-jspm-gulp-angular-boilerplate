@@ -50,7 +50,7 @@ gulp.task('buildfronts', function () {
     .pipe(replace('css/app.css', 'app.min.css'))
     .pipe(replace('lib/system.js', 'app.min.js'))
     .pipe(replace('<script src="config.js"></script>', ''))
-    .pipe(replace("<script>System.import('./js/app')</script>", ''))
+    .pipe(replace("<script>System.import('./js/app').catch(console.error.bind(console))</script>", ''))
     .pipe(minifyHtml())
     .pipe(gulp.dest(global.paths.dist));
 });
@@ -58,8 +58,6 @@ gulp.task('buildfronts', function () {
 // Build HTML for distribution.
 gulp.task('buildhtml', function () {
   gulp.src(global.paths.html)
-    .pipe(replace('<script src="config.js"></script>', ''))
-    .pipe(replace("<script>System.import('./js/app')</script>", ''))
     .pipe(minifyHtml())
     .pipe(gulp.dest(global.paths.dist + '/html'));
 });
